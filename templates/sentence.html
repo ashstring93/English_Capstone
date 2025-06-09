@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ chapter }} – {{ sentence }}</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>Chapter: {{ chapter }}, 문장: <em>{{ sentence }}</em></h1>
+
+  <!-- 1) 사용자 캘리브레이션 섹션 -->
+  <section id="calibration">
+    <h2>1. 목소리 캘리브레이션</h2>
+    <p>먼저 아래 문장을 읽고 녹음해주세요. 개인의 피치 성향을 반영합니다.</p>
+    <p><strong>캘리브레이션 문장:</strong> “Hello, this is a calibration.”</p>
+    <audio id="calibNativeAudio" controls>
+      <!-- calibration.wav 파일을 static/audio/calibration.wav 로 넣어주세요 -->
+      <source src="/static/audio/calibration.wav" type="audio/wav">
+      브라우저가 오디오 태그를 지원하지 않습니다.
+    </audio>
+    <div class="controls">
+      <button id="calibRecordButton">캘리브레이션 녹음 시작</button>
+      <button id="calibStopButton" disabled>캘리브레이션 녹음 중지</button>
+      <button id="calibUploadButton" disabled>캘리브레이션 적용</button>
+    </div>
+    <p id="calibStatus"></p>
+  </section>
+
+  <hr>
+
+  <!-- 2) 연습 문장 섹션 (캘리브레이션 완료 후 표시) -->
+  <section id="practice" style="display:none;">
+    <h2>2. 연습 문장</h2>
+    <!-- 2-1) 원어민 음성 재생 -->
+    <audio id="nativeAudio" controls>
+      <source src="/static/audio/{{ chapter }}/{{ sentence }}.wav" type="audio/wav">
+      브라우저가 오디오 태그를 지원하지 않습니다.
+    </audio>
+
+    <!-- 2-2) 녹음 및 분석 버튼 -->
+    <div class="controls">
+      <button id="recordButton">녹음 시작</button>
+      <button id="stopButton" disabled>녹음 중지</button>
+      <button id="analyzeButton" disabled>분석하기</button>
+      <button id="reRecordButton" style="display:none;">다시 녹음하기</button>
+    </div>
+    <p id="status"></p>
+
+    <!-- 2-3) 사용자가 녹음한 파일 재생 -->
+    <audio id="recordedAudio" controls style="display:none;"></audio>
+
+    <!-- 2-4) 결과 차트 -->
+    <h3>유사도 결과</h3>
+    <!-- 2-0) 점수 표시 -->
+    <p id="scoreDisplay" style="font-size:1.2em; font-weight:bold;"></p>
+    <canvas id="resultChart" width="400" height="200"></canvas>
+
+    <!-- 2-5) 피치 컨투어 라인 차트 -->
+    <h3>피치 곡선</h3>
+    <canvas id="pitchChart" width="600" height="200"></canvas>
+  </section>
+
+  <script>
+    const chapter  = "{{ chapter }}";
+    const sentence = "{{ sentence }}";
+  </script>
+  <script src="/static/js/script.js"></script>
+</body>
+</html>

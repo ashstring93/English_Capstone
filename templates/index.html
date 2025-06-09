@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>영어 발음 비교</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <h1>챕터별 문장 선택</h1>
+
+  <div class="chapter-list">
+    {% for ch, sentences in chapters.items() %}
+      <section>
+        <h2>{{ ch }}</h2>
+        <ul>
+          {% for s in sentences %}
+            <li>
+              <a href="{{ url_for('sentence_page', chapter=ch, sentence=s) }}">
+                {{ s }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endfor %}
+  </div>
+</body>
+</html>
