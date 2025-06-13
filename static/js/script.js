@@ -148,7 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       statusLabel.textContent = '✅ 분석 완료';
       // 1) 점수 보여주기
-
+      const scoreEl = document.getElementById('scoreDisplay');
+      scoreEl.textContent = `점수: ${data.score}점`;
       // 2) 차트 그리기
       showResultCharts(data);
     } catch (err) {
